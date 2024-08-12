@@ -22,3 +22,9 @@ Inspired by [Developer Roadmaps](https://roadmap.sh/).
 ### Server-side RESTful API
 * .NET (Core)
 * C#
+
+# Tasks
+- MongoDB
+    - Install MongoDB Shell
+    - Install MongoDB
+    - Data Storage Directory
