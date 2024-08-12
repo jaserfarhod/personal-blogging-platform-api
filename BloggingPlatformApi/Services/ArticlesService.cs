@@ -21,19 +21,19 @@ namespace BloggingPlatformApi.Services
                 bloggingPlatformDatabaseSettings.Value.ArticlesCollectionName);
         }
 
-        public async Task<List<Article>> GetAsync() =>
+        public async Task<List<Article>> GetArticles() =>
             await _articlesCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Article?> GetAsync(string id) =>
+        public async Task<Article?> GetArticle(string id) =>
             await _articlesCollection.Find(a => a.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Article newArticle) =>
+        public async Task CreateArticle(Article newArticle) =>
             await _articlesCollection.InsertOneAsync(newArticle);
 
-        public async Task UpdateAsync(string id, Article updatedArticle) =>
+        public async Task UpdateArticle(string id, Article updatedArticle) =>
             await _articlesCollection.ReplaceOneAsync(a => a.Id == id, updatedArticle);
 
-        public async Task RemoveAsync(string id) =>
+        public async Task RemoveArticle(string id) =>
             await _articlesCollection.DeleteOneAsync(a => a.Id == id);
     }
 }
