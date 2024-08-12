@@ -27,4 +27,4 @@ Inspired by [Developer Roadmaps](https://roadmap.sh/).
 - MongoDB
     - Install MongoDB Shell
     - Install MongoDB
-    - Data Storage Directory
+    - Configure Data Storage Directory
