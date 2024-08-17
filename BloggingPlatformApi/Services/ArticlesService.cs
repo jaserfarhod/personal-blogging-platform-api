@@ -21,8 +21,24 @@ namespace BloggingPlatformApi.Services
                 bloggingPlatformDatabaseSettings.Value.ArticlesCollectionName);
         }
 
-        public async Task<List<Article>> GetArticles() =>
-            await _articlesCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Article>> GetArticles(string? publishDate, List<string>? tags)
+        {
+            var filterBuilder = Builders<Article>.Filter;
+            var filter = filterBuilder.Empty; // Start with an empty filter
+
+            if (!string.IsNullOrEmpty(publishDate))
+            {
+                filter &= filterBuilder.Eq(article => article.PublishDate, publishDate);
+            }
+
+            if (tags != null && tags.Count > 0)
+            {
+                filter &= filterBuilder.All(article => article.Tags, tags);
+            }
+
+            return await _articlesCollection.Find(filter).ToListAsync();
+        }
+
 
         public async Task<Article?> GetArticle(string id) =>
             await _articlesCollection.Find(a => a.Id == id).FirstOrDefaultAsync();

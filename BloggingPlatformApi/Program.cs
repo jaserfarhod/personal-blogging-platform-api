@@ -3,6 +3,7 @@ using BloggingPlatformApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,5 +20,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.MapGet("/test", () => "Hello World!");
+app.MapControllers();
+
+// app.UseHttpsRedirection();
 app.Run();

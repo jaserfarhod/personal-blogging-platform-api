@@ -16,9 +16,11 @@ namespace BloggingPlatformApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Article>> Get()
+        public async Task<List<Article>> Get(string? publishingDate, string? tags = null)
         {
-            return await _articlesService.GetArticles();
+             List<string>? tagList = tags?.Split(',').Select(tag => tag.Trim()).ToList();
+
+            return await _articlesService.GetArticles(publishingDate, tagList);
         }
 
         [HttpGet("{id:length(24)}")]
@@ -37,7 +39,7 @@ namespace BloggingPlatformApi.Controllers
         {
             await _articlesService.CreateArticle(newArticle);
 
-            return CreatedAtAction(nameof(Get), new { id = newBook.Id}, newBook);
+            return CreatedAtAction(nameof(Get), new { id = newArticle.Id}, newArticle);
         }
 
         [HttpPut("{id:length(24)}")]
@@ -51,7 +53,7 @@ namespace BloggingPlatformApi.Controllers
             }
 
             updatedArticle.Id = article.Id;
-            await _articlesService.UpdateArticle(id, updatedArticle)
+            await _articlesService.UpdateArticle(id, updatedArticle);
 
             return NoContent();
         }
